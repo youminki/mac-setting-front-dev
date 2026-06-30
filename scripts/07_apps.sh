@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 APPS=(
   "ghostty       # 터미널"

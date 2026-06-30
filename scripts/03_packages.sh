@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 PACKAGES=(
   "zsh-autosuggestions    # 명령어 자동완성 제안"

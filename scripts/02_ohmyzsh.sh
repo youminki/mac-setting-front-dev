@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
   success "oh-my-zsh 이미 설치됨"

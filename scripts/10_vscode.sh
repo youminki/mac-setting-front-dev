@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 # Cursor 또는 VS Code CLI 감지
 if command -v cursor &>/dev/null; then

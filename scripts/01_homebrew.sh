@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 if command -v brew &>/dev/null; then
   success "Homebrew 이미 설치됨 ($(brew --version | head -1))"

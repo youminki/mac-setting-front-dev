@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 # .gitconfig는 05_dotfiles.sh에서 이미 복사됨
 # user 정보와 excludesfile만 여기서 추가 설정

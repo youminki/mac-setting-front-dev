@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 if xcode-select -p &>/dev/null; then
   success "Xcode Command Line Tools 이미 설치됨"
