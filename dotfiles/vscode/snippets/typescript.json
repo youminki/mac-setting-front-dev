@@ -1,0 +1,80 @@
+{
+  "Interface": {
+    "prefix": "tinterface",
+    "body": ["interface ${1:Name} {", "  ${2:prop}: ${3:type}", "}"],
+    "description": "TypeScript interface"
+  },
+  "Type Alias": {
+    "prefix": "ttype",
+    "body": "type ${1:Name} = ${2:type}",
+    "description": "TypeScript type alias"
+  },
+  "Arrow Function": {
+    "prefix": "tfn",
+    "body": [
+      "const ${1:name} = (${2:params}): ${3:void} => {",
+      "  $0",
+      "}"
+    ],
+    "description": "타입이 있는 화살표 함수"
+  },
+  "Async Arrow Function": {
+    "prefix": "tasync",
+    "body": [
+      "const ${1:name} = async (${2:params}): Promise<${3:void}> => {",
+      "  $0",
+      "}"
+    ],
+    "description": "async 화살표 함수"
+  },
+  "Enum": {
+    "prefix": "tenum",
+    "body": ["enum ${1:Name} {", "  ${2:Member} = '${3:value}',", "}"],
+    "description": "TypeScript enum"
+  },
+  "Generic Function": {
+    "prefix": "tgeneric",
+    "body": [
+      "function ${1:name}<${2:T}>(${3:param}: ${2:T}): ${2:T} {",
+      "  $0",
+      "}"
+    ],
+    "description": "제네릭 함수"
+  },
+  "Try Catch": {
+    "prefix": "ttrycatch",
+    "body": [
+      "try {",
+      "  $1",
+      "} catch (error) {",
+      "  console.error(error)",
+      "}"
+    ],
+    "description": "try/catch 블록"
+  },
+  "Console Log": {
+    "prefix": "cl",
+    "body": "console.log('${1:label}:', $1)",
+    "description": "console.log with label"
+  },
+  "Console Log Variable": {
+    "prefix": "clv",
+    "body": "console.log({ $1 })",
+    "description": "console.log 객체로 변수명과 값 함께 출력"
+  },
+  "Non-null Assertion": {
+    "prefix": "tnn",
+    "body": "${1:value}!",
+    "description": "Non-null assertion (!)"
+  },
+  "Optional Chaining": {
+    "prefix": "topt",
+    "body": "${1:obj}?.${2:prop}",
+    "description": "Optional chaining (?.)"
+  },
+  "Nullish Coalescing": {
+    "prefix": "tnull",
+    "body": "${1:value} ?? ${2:fallback}",
+    "description": "Nullish coalescing (??)"
+  }
+}

@@ -83,6 +83,8 @@ else
   SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
 fi
 
-mkdir -p "$SETTINGS_DIR"
+mkdir -p "$SETTINGS_DIR/snippets"
 backup_and_copy "$DOTFILES_DIR/vscode/settings.json"    "$SETTINGS_DIR/settings.json"
 backup_and_copy "$DOTFILES_DIR/vscode/keybindings.json" "$SETTINGS_DIR/keybindings.json"
+backup_and_copy "$DOTFILES_DIR/vscode/snippets/vue.json"        "$SETTINGS_DIR/snippets/vue.json"
+backup_and_copy "$DOTFILES_DIR/vscode/snippets/typescript.json" "$SETTINGS_DIR/snippets/typescript.json"

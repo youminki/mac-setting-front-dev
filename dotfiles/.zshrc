@@ -1,3 +1,9 @@
+# ── Powerlevel10k Instant Prompt ──────────────────────
+# 터미널 시작 속도 개선 — 이 블록은 파일 최상단에 있어야 함
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # ── Homebrew PATH (Apple Silicon / Intel 대응) ────────
 if [[ -f /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon
@@ -7,7 +13,7 @@ fi
 
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git)
 
@@ -92,3 +98,6 @@ alias pi="pnpm install"
 alias pa="pnpm add"
 alias pr="pnpm run"
 alias pd="pnpm dev"
+
+# ── Powerlevel10k 설정 로드 ───────────────────────────
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

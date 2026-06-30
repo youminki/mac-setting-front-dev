@@ -1,0 +1,110 @@
+{
+  "Vue Script Setup": {
+    "prefix": "vscript",
+    "body": ["<script setup lang=\"ts\">", "$0", "</script>"],
+    "description": "<script setup lang=\"ts\">"
+  },
+  "Vue SFC": {
+    "prefix": "vsfc",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "$0",
+      "</script>",
+      "",
+      "<template>",
+      "  <div>",
+      "  </div>",
+      "</template>"
+    ],
+    "description": "Vue 3 SFC 기본 구조"
+  },
+  "Vue Ref": {
+    "prefix": "vref",
+    "body": "const ${1:name} = ref(${2:initialValue})",
+    "description": "ref()"
+  },
+  "Vue Computed": {
+    "prefix": "vcomputed",
+    "body": ["const ${1:name} = computed(() => {", "  $0", "})"],
+    "description": "computed()"
+  },
+  "Vue Watch": {
+    "prefix": "vwatch",
+    "body": [
+      "watch(",
+      "  () => ${1:source},",
+      "  (${2:val}) => {",
+      "    $0",
+      "  },",
+      ")"
+    ],
+    "description": "watch()"
+  },
+  "Vue WatchEffect": {
+    "prefix": "vwatcheffect",
+    "body": ["watchEffect(() => {", "  $0", "})"],
+    "description": "watchEffect()"
+  },
+  "Vue defineProps": {
+    "prefix": "vprops",
+    "body": [
+      "const props = defineProps<{",
+      "  ${1:propName}: ${2:type}",
+      "}>()"
+    ],
+    "description": "defineProps<{}>()"
+  },
+  "Vue defineEmits": {
+    "prefix": "vemits",
+    "body": [
+      "const emit = defineEmits<{",
+      "  ${1:eventName}: [${2:payload}: ${3:type}]",
+      "}>()"
+    ],
+    "description": "defineEmits<{}>()"
+  },
+  "Vue defineModel": {
+    "prefix": "vmodel",
+    "body": "const ${1:modelValue} = defineModel<${2:string}>()",
+    "description": "defineModel() — Vue 3.4+"
+  },
+  "Vue onMounted": {
+    "prefix": "vonmounted",
+    "body": ["onMounted(() => {", "  $0", "})"],
+    "description": "onMounted()"
+  },
+  "Vue onUnmounted": {
+    "prefix": "vonunmounted",
+    "body": ["onUnmounted(() => {", "  $0", "})"],
+    "description": "onUnmounted()"
+  },
+  "Vue onBeforeMount": {
+    "prefix": "vonbeforemount",
+    "body": ["onBeforeMount(() => {", "  $0", "})"],
+    "description": "onBeforeMount()"
+  },
+  "Vue Composable": {
+    "prefix": "vcomposable",
+    "body": [
+      "import { ref, computed } from 'vue'",
+      "",
+      "export function use${1:Name}() {",
+      "  $0",
+      "",
+      "  return {",
+      "  }",
+      "}"
+    ],
+    "description": "Vue 3 Composable 기본 구조"
+  },
+  "Vue provide": {
+    "prefix": "vprovide",
+    "body": "provide(${1:key}, ${2:value})",
+    "description": "provide()"
+  },
+  "Vue inject": {
+    "prefix": "vinject",
+    "body": "const ${1:name} = inject<${2:type}>(${3:key})",
+    "description": "inject()"
+  }
+}

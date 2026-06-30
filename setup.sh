@@ -50,5 +50,8 @@ else
   warn "macOS 시스템 설정 건너뜀 (나중에 ./scripts/09_macos.sh 로 실행 가능)"
 fi
 
-echo -e "\n${GREEN}${BOLD}✓ 모든 세팅 완료! 터미널을 재시작하거나 아래를 실행하세요:${NC}"
-echo -e "  ${YELLOW}source ~/.zshrc${NC}\n"
+chmod +x "$SCRIPT_DIR/update.sh"
+
+echo -e "\n${GREEN}${BOLD}✓ 모든 세팅 완료!${NC}"
+echo -e "  터미널을 재시작하거나 ${YELLOW}source ~/.zshrc${NC} 를 실행하세요."
+echo -e "  이후 업데이트는 ${YELLOW}./update.sh${NC} 로 한 번에 처리할 수 있어요.\n"

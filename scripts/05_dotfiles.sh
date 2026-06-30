@@ -6,6 +6,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../dotfiles" && pwd)"
 backup_and_copy "$DOTFILES_DIR/.zshrc"        "$HOME/.zshrc"
 backup_and_copy "$DOTFILES_DIR/.tmux.conf"    "$HOME/.tmux.conf"
 backup_and_copy "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
+backup_and_copy "$DOTFILES_DIR/.p10k.zsh"     "$HOME/.p10k.zsh"
 
 # .gitconfig: user 설정은 유지하고 나머지만 덮어쓰기
 if [[ -f "$HOME/.gitconfig" ]]; then
