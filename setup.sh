@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo -e "${BOLD}"
 echo "  ╔══════════════════════════════════════╗"
-echo "  ║   Mac Frontend Dev Setup  v2.0.0    ║"
+echo "  ║   Mac Frontend Dev Setup  v3.0.0    ║"
 echo "  ╚══════════════════════════════════════╝"
 echo -e "${NC}"
 
@@ -49,6 +49,9 @@ source "$SCRIPT_DIR/scripts/07_apps.sh"
 
 step "9/9  Git 설정 + SSH 키"
 source "$SCRIPT_DIR/scripts/08_git.sh"
+
+step "10/10  VS Code / Cursor 확장프로그램 + 설정"
+source "$SCRIPT_DIR/scripts/10_vscode.sh"
 
 echo ""
 warn "macOS 시스템 설정을 변경합니다 (Finder·Dock 재시작됨)"

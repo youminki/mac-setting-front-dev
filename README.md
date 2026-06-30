@@ -33,6 +33,33 @@ chmod +x setup.sh
 | pnpm | 빠른 패키지 매니저 |
 | wget | 파일 다운로드 |
 
+### VS Code / Cursor 확장프로그램
+
+| 확장프로그램 | 설명 |
+|------------|------|
+| Vue.volar | Vue Language Features |
+| dbaeumer.vscode-eslint | ESLint |
+| esbenp.prettier-vscode | Prettier |
+| bradlc.vscode-tailwindcss | Tailwind CSS IntelliSense |
+| eamodio.gitlens | Git blame / history |
+| usernamehw.errorlens | 인라인 에러 표시 |
+| christian-kohler.path-intellisense | 경로 자동완성 |
+| formulahendry.auto-rename-tag | HTML 태그 자동 쌍 수정 |
+| wix.vscode-import-cost | import 번들 크기 표시 |
+| naumovs.color-highlight | HEX 색상 미리보기 |
+| PKief.material-icon-theme | 파일 아이콘 테마 |
+| dracula-theme.theme-dracula | Dracula 테마 |
+| GitHub.copilot | GitHub Copilot |
+| GitHub.copilot-chat | GitHub Copilot Chat |
+| MS-CEINTL.vscode-language-pack-ko | 한국어 팩 |
+
+`settings.json` 주요 설정:
+- `formatOnSave` + Prettier (singleQuote, no semi, trailingComma)
+- ESLint `fixAll` on save
+- Dracula 테마 + Material Icon
+- 폰트: D2Coding / MesloLGS NF
+- 터미널 폰트: MesloLGS NF
+
 ### 앱 (Homebrew Cask)
 
 | 앱 | 설명 |
@@ -124,14 +151,17 @@ mac-setting-front-dev/
 │   ├── 06_fonts.sh          # 폰트 설치
 │   ├── 07_apps.sh           # 앱 설치 (Cask)
 │   ├── 08_git.sh            # Git 전역 설정 + SSH 키
-│   └── 09_macos.sh          # macOS 시스템 설정
+│   ├── 09_macos.sh          # macOS 시스템 설정
+│   └── 10_vscode.sh         # VS Code / Cursor 확장프로그램 + settings.json
 └── dotfiles/
     ├── .zshrc
     ├── .tmux.conf
-    └── ghostty/
-        ├── config
-        └── themes/
-            └── Dracula+
+    ├── ghostty/
+    │   ├── config
+    │   └── themes/
+    │       └── Dracula+
+    └── vscode/
+        └── settings.json
 ```
 
 > 기존 설정 파일이 있으면 `~/.dotfiles_backup/<timestamp>/` 에 자동 백업됩니다.
