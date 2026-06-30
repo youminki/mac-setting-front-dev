@@ -17,6 +17,8 @@ EXTENSIONS=(
   "Vue.volar"                             # Vue Language Features
   "ms-vscode.vscode-typescript-next"      # TypeScript 최신 버전
   "antfu.goto-alias"                      # @ 경로 바로 이동 (Vue 필수)
+  "hollowtree.vue-snippets"               # Vue 스니펫
+  "steoates.autoimport"                   # 자동 import
 
   # ── 린트 / 포맷 ───────────────────────────────────
   "dbaeumer.vscode-eslint"                # ESLint
@@ -26,19 +28,26 @@ EXTENSIONS=(
   "bradlc.vscode-tailwindcss"             # Tailwind CSS IntelliSense
   "antfu.iconify"                         # Iconify 아이콘 미리보기
   "naumovs.color-highlight"               # HEX 색상 미리보기
+  "ecmel.vscode-html-css"                 # HTML/CSS 클래스 자동완성
+  "pranaygp.vscode-css-peek"              # CSS 정의로 바로 이동
 
   # ── 에디터 UX ─────────────────────────────────────
   "oderwat.indent-rainbow"                # 들여쓰기 단계별 컬러
   "vincaslt.highlight-matching-tag"       # HTML 태그 쌍 하이라이트
   "formulahendry.auto-rename-tag"         # HTML 태그 자동 쌍 수정
+  "formulahendry.auto-close-tag"          # HTML 태그 자동 닫기
   "aaron-bond.better-comments"            # TODO/FIXME/! 색상 강조
   "christian-kohler.path-intellisense"    # 경로 자동완성
   "wix.vscode-import-cost"                # import 번들 크기 표시
   "streetsidesoftware.code-spell-checker" # 영문 스펠링 체크
+  "mikestead.dotenv"                      # .env 파일 하이라이팅
+  "codezombiech.gitignore"                # .gitignore 생성 도우미
+  "ritwickdey.liveserver"                 # 라이브 서버 (정적 파일 미리보기)
 
-  # ── Git ───────────────────────────────────────────
+  # ── Git / CI ──────────────────────────────────────
   "eamodio.gitlens"                       # Git blame / history
   "mhutchie.git-graph"                    # git 브랜치 그래프 시각화
+  "github.vscode-github-actions"          # GitHub Actions 지원
 
   # ── 테스트 ────────────────────────────────────────
   "ZixuanChen.vitest-explorer"            # Vitest 테스트 러너 UI
@@ -54,8 +63,7 @@ EXTENSIONS=(
   # ── 기타 ──────────────────────────────────────────
   "usernamehw.errorlens"                  # 인라인 에러 표시
   "MS-CEINTL.vscode-language-pack-ko"     # 한국어 팩
-  "GitHub.copilot"                        # GitHub Copilot
-  "GitHub.copilot-chat"                   # GitHub Copilot Chat
+  # GitHub.copilot / copilot-chat → Cursor 사용 시 불필요 (AI 내장)
 )
 
 for ext in "${EXTENSIONS[@]}"; do
