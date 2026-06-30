@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# ── Git 전역 설정 ──────────────────────────────────────
-git config --global init.defaultBranch main
-git config --global pull.rebase false
-git config --global core.autocrlf input
+# .gitconfig는 05_dotfiles.sh에서 이미 복사됨
+# user 정보와 excludesfile만 여기서 추가 설정
 git config --global core.excludesfile ~/.gitignore_global
 
 # ── .gitignore_global ─────────────────────────────────

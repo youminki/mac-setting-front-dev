@@ -1,3 +1,10 @@
+# ── Homebrew PATH (Apple Silicon / Intel 대응) ────────
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon
+elif [[ -f /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"      # Intel
+fi
+
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
@@ -6,10 +13,17 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# ── NVM ───────────────────────────────────────────────
+# ── NVM (lazy loading으로 터미널 시작 속도 개선) ──────
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+node() { nvm; node "$@"; }
+npm()  { nvm; npm  "$@"; }
+npx()  { nvm; npx  "$@"; }
 
 # ── pnpm ──────────────────────────────────────────────
 export PNPM_HOME="$HOME/Library/pnpm"

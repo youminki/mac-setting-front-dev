@@ -39,3 +39,13 @@ backup_and_copy "$DOTFILES_DIR/ghostty/config"  "$HOME/.config/ghostty/config"
 mkdir -p "$HOME/.config/ghostty/themes"
 cp "$DOTFILES_DIR/ghostty/themes/Dracula+" "$HOME/.config/ghostty/themes/Dracula+"
 success "Ghostty Dracula+ 테마 적용 완료"
+
+# ── SSH config ────────────────────────────────────────
+mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+if [[ ! -f "$HOME/.ssh/config" ]]; then
+  cp "$DOTFILES_DIR/.ssh_config" "$HOME/.ssh/config"
+  chmod 600 "$HOME/.ssh/config"
+  success "~/.ssh/config 적용 완료"
+else
+  success "~/.ssh/config 이미 존재 (건너뜀)"
+fi
