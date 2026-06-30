@@ -4,6 +4,7 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
+  "workbench.tree.indent": 16,
 
   // ── 폰트 ────────────────────────────────────────────
   "editor.fontFamily": "D2Coding, MesloLGS NF, monospace",
@@ -28,6 +29,8 @@
   "editor.wordWrap": "off",
   "editor.renderWhitespace": "trailing",
   "editor.suggestSelection": "first",
+  "editor.inlineSuggest.enabled": true,
+  "editor.accessibilitySupport": "off",
 
   // ── 파일 ────────────────────────────────────────────
   "files.autoSave": "onFocusChange",
@@ -44,12 +47,14 @@
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.smoothScrolling": true,
 
   // ── Git ─────────────────────────────────────────────
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.hovers.currentLine.over": "line",
+  "git-graph.date.format": "Relative",
 
   // ── ESLint / Prettier ────────────────────────────────
   "eslint.validate": ["javascript", "typescript", "vue"],
@@ -71,11 +76,34 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
   // ── Tailwind ─────────────────────────────────────────
   "tailwindCSS.experimental.classRegex": [
-    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
+
+  // ── Better Comments ──────────────────────────────────
+  "better-comments.tags": [
+    { "tag": "!", "color": "#FF2D00", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "?", "color": "#3498DB", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "//", "color": "#474747", "strikethrough": true,  "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "todo", "color": "#FF8C00", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "fixme", "color": "#FF2D00", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": true, "italic": false }
+  ],
+
+  // ── Code Spell Checker ───────────────────────────────
+  "cSpell.language": "en",
+  "cSpell.words": ["composable", "Composable", "pinia", "Pinia", "vite", "vuex", "tanstack", "zshrc", "dotfiles"],
+
+  // ── Vitest ───────────────────────────────────────────
+  "vitest.enable": true,
 
   // ── 기타 ────────────────────────────────────────────
   "explorer.confirmDelete": false,
@@ -83,6 +111,9 @@
   "breadcrumbs.enabled": true,
   "search.exclude": {
     "**/node_modules": true,
-    "**/dist": true
-  }
+    "**/dist": true,
+    "**/.git": true
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "security.workspace.trust.untrustedFiles": "open"
 }

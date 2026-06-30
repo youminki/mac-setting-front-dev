@@ -13,46 +13,59 @@ fi
 log "$CLI 확장프로그램 설치 중..."
 
 EXTENSIONS=(
-  # ── Vue / TypeScript ───────────────────────────────
-  "Vue.volar"                          # Vue Language Features (Volar)
-  "dbaeumer.vscode-eslint"             # ESLint
-  "esbenp.prettier-vscode"             # Prettier
+  # ── Vue / TypeScript ──────────────────────────────
+  "Vue.volar"                             # Vue Language Features
+  "ms-vscode.vscode-typescript-next"      # TypeScript 최신 버전
+  "antfu.goto-alias"                      # @ 경로 바로 이동 (Vue 필수)
+
+  # ── 린트 / 포맷 ───────────────────────────────────
+  "dbaeumer.vscode-eslint"                # ESLint
+  "esbenp.prettier-vscode"                # Prettier
 
   # ── 스타일 ────────────────────────────────────────
-  "bradlc.vscode-tailwindcss"          # Tailwind CSS IntelliSense
-  "naumovs.color-highlight"            # HEX 색상 미리보기
+  "bradlc.vscode-tailwindcss"             # Tailwind CSS IntelliSense
+  "antfu.iconify"                         # Iconify 아이콘 미리보기
+  "naumovs.color-highlight"               # HEX 색상 미리보기
 
-  # ── 생산성 ────────────────────────────────────────
-  "eamodio.gitlens"                    # GitLens (git blame, history)
-  "usernamehw.errorlens"               # 인라인 에러 표시
-  "christian-kohler.path-intellisense" # 경로 자동완성
-  "formulahendry.auto-rename-tag"      # HTML 태그 자동 쌍 수정
-  "wix.vscode-import-cost"             # import 번들 크기 표시
+  # ── 에디터 UX ─────────────────────────────────────
+  "oderwat.indent-rainbow"                # 들여쓰기 단계별 컬러
+  "vincaslt.highlight-matching-tag"       # HTML 태그 쌍 하이라이트
+  "formulahendry.auto-rename-tag"         # HTML 태그 자동 쌍 수정
+  "aaron-bond.better-comments"            # TODO/FIXME/! 색상 강조
+  "christian-kohler.path-intellisense"    # 경로 자동완성
+  "wix.vscode-import-cost"                # import 번들 크기 표시
+  "streetsidesoftware.code-spell-checker" # 영문 스펠링 체크
 
-  # ── 테마 / UI ─────────────────────────────────────
-  "PKief.material-icon-theme"          # 파일 아이콘 테마
-  "dracula-theme.theme-dracula"        # Dracula 테마
+  # ── Git ───────────────────────────────────────────
+  "eamodio.gitlens"                       # Git blame / history
+  "mhutchie.git-graph"                    # git 브랜치 그래프 시각화
 
-  # ── TypeScript / Vite ────────────────────────────────
-  "ms-vscode.vscode-typescript-next"      # TypeScript 최신 버전
+  # ── 테스트 ────────────────────────────────────────
+  "ZixuanChen.vitest-explorer"            # Vitest 테스트 러너 UI
   "antfu.vite"                            # Vite 지원
 
+  # ── 원격 / 컨테이너 ───────────────────────────────
+  "ms-vscode-remote.remote-containers"    # Dev Containers (Docker 연동)
+
+  # ── 테마 / UI ─────────────────────────────────────
+  "PKief.material-icon-theme"             # 파일 아이콘 테마
+  "dracula-theme.theme-dracula"           # Dracula 테마
+
   # ── 기타 ──────────────────────────────────────────
-  "streetsidesoftware.code-spell-checker" # 영문 스펠링 체크
+  "usernamehw.errorlens"                  # 인라인 에러 표시
   "MS-CEINTL.vscode-language-pack-ko"     # 한국어 팩
   "GitHub.copilot"                        # GitHub Copilot
   "GitHub.copilot-chat"                   # GitHub Copilot Chat
 )
 
 for ext in "${EXTENSIONS[@]}"; do
-  id="${ext%%#*}"
-  id="${id//[[:space:]]/}"
+  id="${ext%%#*}"; id="${id//[[:space:]]/}"
   $CLI --install-extension "$id" --force &>/dev/null \
     && success "$id" \
     || warn "$id 설치 실패 (건너뜀)"
 done
 
-# ── settings.json 복사 ────────────────────────────────
+# ── settings.json / keybindings.json 복사 ─────────────
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../dotfiles" && pwd)"
 
 if [[ "$CLI" == "cursor" ]]; then
@@ -62,16 +75,5 @@ else
 fi
 
 mkdir -p "$SETTINGS_DIR"
-
-if [[ -f "$SETTINGS_DIR/settings.json" ]]; then
-  BACKUP_DIR="$HOME/.dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
-  mkdir -p "$BACKUP_DIR"
-  cp "$SETTINGS_DIR/settings.json" "$BACKUP_DIR/vscode_settings.json"
-  warn "기존 settings.json → $BACKUP_DIR 백업"
-fi
-
-cp "$DOTFILES_DIR/vscode/settings.json" "$SETTINGS_DIR/settings.json"
-success "settings.json 적용 완료"
-
-cp "$DOTFILES_DIR/vscode/keybindings.json" "$SETTINGS_DIR/keybindings.json"
-success "keybindings.json 적용 완료"
+backup_and_copy "$DOTFILES_DIR/vscode/settings.json"    "$SETTINGS_DIR/settings.json"
+backup_and_copy "$DOTFILES_DIR/vscode/keybindings.json" "$SETTINGS_DIR/keybindings.json"
