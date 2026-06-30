@@ -11,6 +11,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+# ── pnpm ──────────────────────────────────────────────
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# ── 기본 에디터 ───────────────────────────────────────
+if command -v cursor &>/dev/null; then
+  export EDITOR="cursor --wait"
+elif command -v code &>/dev/null; then
+  export EDITOR="code --wait"
+fi
+
 # ── Auto Suggestions ──────────────────────────────────
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -27,8 +38,11 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
-# ── fzf (퍼지 검색) ───────────────────────────────────
+# ── fzf + fd 연동 ─────────────────────────────────────
 eval "$(fzf --zsh)"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 
 # ── zoxide (스마트 cd) ────────────────────────────────
@@ -44,6 +58,9 @@ alias lt="eza --tree --icons -L 2"
 # ── bat (문법 하이라이팅 cat) ─────────────────────────
 alias cat="bat --paging=never"
 
+# ── lazygit ───────────────────────────────────────────
+alias lg="lazygit"
+
 # ── Git ───────────────────────────────────────────────
 alias gs="git status"
 alias gd="git diff"
@@ -54,6 +71,10 @@ alias gc="git commit -m"
 alias gp="git push"
 alias gpl="git pull"
 
-# ── npm ───────────────────────────────────────────────
+# ── npm / pnpm ────────────────────────────────────────
 alias dev="npm run dev"
 alias build="npm run build"
+alias pi="pnpm install"
+alias pa="pnpm add"
+alias pr="pnpm run"
+alias pd="pnpm dev"

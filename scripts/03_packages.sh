@@ -12,6 +12,10 @@ PACKAGES=(
   jq                     # JSON 처리
   pnpm                   # 빠른 npm 대체 패키지 매니저
   wget                   # 파일 다운로드
+  ripgrep                # 빠른 grep 대체 (VS Code 내부에서도 사용)
+  fd                     # 빠른 find 대체 (fzf Ctrl+T 연동)
+  lazygit                # 터미널 Git TUI
+  git-delta              # git diff 문법 하이라이팅
 )
 
 for pkg in "${PACKAGES[@]}"; do

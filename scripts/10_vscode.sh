@@ -33,10 +33,15 @@ EXTENSIONS=(
   "PKief.material-icon-theme"          # 파일 아이콘 테마
   "dracula-theme.theme-dracula"        # Dracula 테마
 
+  # ── TypeScript / Vite ────────────────────────────────
+  "ms-vscode.vscode-typescript-next"      # TypeScript 최신 버전
+  "antfu.vite"                            # Vite 지원
+
   # ── 기타 ──────────────────────────────────────────
-  "MS-CEINTL.vscode-language-pack-ko"  # 한국어 팩
-  "GitHub.copilot"                     # GitHub Copilot
-  "GitHub.copilot-chat"                # GitHub Copilot Chat
+  "streetsidesoftware.code-spell-checker" # 영문 스펠링 체크
+  "MS-CEINTL.vscode-language-pack-ko"     # 한국어 팩
+  "GitHub.copilot"                        # GitHub Copilot
+  "GitHub.copilot-chat"                   # GitHub Copilot Chat
 )
 
 for ext in "${EXTENSIONS[@]}"; do
@@ -66,4 +71,7 @@ if [[ -f "$SETTINGS_DIR/settings.json" ]]; then
 fi
 
 cp "$DOTFILES_DIR/vscode/settings.json" "$SETTINGS_DIR/settings.json"
-success "settings.json 적용 완료 ($SETTINGS_DIR)"
+success "settings.json 적용 완료"
+
+cp "$DOTFILES_DIR/vscode/keybindings.json" "$SETTINGS_DIR/keybindings.json"
+success "keybindings.json 적용 완료"
