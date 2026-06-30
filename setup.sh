@@ -19,24 +19,44 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo -e "${BOLD}"
 echo "  ╔══════════════════════════════════════╗"
-echo "  ║   Mac Frontend Dev Setup  v1.0.0    ║"
+echo "  ║   Mac Frontend Dev Setup  v2.0.0    ║"
 echo "  ╚══════════════════════════════════════╝"
 echo -e "${NC}"
 
-step "1/5  Homebrew"
+step "1/9  Xcode Command Line Tools"
+source "$SCRIPT_DIR/scripts/00_xcode.sh"
+
+step "2/9  Homebrew"
 source "$SCRIPT_DIR/scripts/01_homebrew.sh"
 
-step "2/5  oh-my-zsh"
+step "3/9  oh-my-zsh"
 source "$SCRIPT_DIR/scripts/02_ohmyzsh.sh"
 
-step "3/5  CLI 패키지"
+step "4/9  CLI 패키지"
 source "$SCRIPT_DIR/scripts/03_packages.sh"
 
-step "4/5  NVM + Node.js"
+step "5/9  NVM + Node.js"
 source "$SCRIPT_DIR/scripts/04_nvm.sh"
 
-step "5/5  Dotfiles"
+step "6/9  Dotfiles"
 source "$SCRIPT_DIR/scripts/05_dotfiles.sh"
 
-echo -e "\n${GREEN}${BOLD}✓ 세팅 완료! 터미널을 재시작하거나 아래를 실행하세요:${NC}"
+step "7/9  폰트"
+source "$SCRIPT_DIR/scripts/06_fonts.sh"
+
+step "8/9  앱 설치"
+source "$SCRIPT_DIR/scripts/07_apps.sh"
+
+step "9/9  Git 설정 + SSH 키"
+source "$SCRIPT_DIR/scripts/08_git.sh"
+
+echo ""
+warn "macOS 시스템 설정을 변경합니다 (Finder·Dock 재시작됨)"
+echo -n "  계속하시겠습니까? [y/N] "
+read -r answer
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+  source "$SCRIPT_DIR/scripts/09_macos.sh"
+fi
+
+echo -e "\n${GREEN}${BOLD}✓ 모든 세팅 완료! 터미널을 재시작하거나 아래를 실행하세요:${NC}"
 echo -e "  ${YELLOW}source ~/.zshrc${NC}\n"
