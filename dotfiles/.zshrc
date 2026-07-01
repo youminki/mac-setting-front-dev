@@ -31,6 +31,14 @@ node() { nvm; node "$@"; }
 npm()  { nvm; npm  "$@"; }
 npx()  { nvm; npx  "$@"; }
 
+# 전역 npm CLI(claude 등)를 nvm lazy-load 없이도 PATH에서 찾도록
+# default(최신) node 버전의 bin 경로를 미리 추가 (node 실행 없음 → 시작 속도 영향 미미)
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+  _default_node="$(command ls -1 "$NVM_DIR/versions/node" | sort -V | tail -1)"
+  [[ -n "$_default_node" ]] && export PATH="$NVM_DIR/versions/node/$_default_node/bin:$PATH"
+  unset _default_node
+fi
+
 # ── .nvmrc 자동 Node 버전 전환 ────────────────────────
 # cd 시 상위 경로까지 .nvmrc 탐색 → 해당 버전으로 nvm use (첫 호출 때 nvm lazy-load)
 autoload -U add-zsh-hook
