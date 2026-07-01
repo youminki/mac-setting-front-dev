@@ -84,33 +84,56 @@ else
   pbcopy < "${SSH_KEY}.pub" && success "공개키가 클립보드에 복사됐습니다"
 fi
 
-# ── 자체 호스팅 GitLab 자동 인증 (선택) ───────────────
-# GITLAB_HOST 환경변수가 설정된 경우에만 실행 (glab이 이 변수를 네이티브로 인식).
+# ── SSH 커밋 서명 (기본 = GitHub, id_ed25519) ─────────
+git config --global gpg.format ssh
+git config --global user.signingkey "${SSH_KEY}.pub"
+git config --global commit.gpgsign true
+git config --global tag.gpgsign true
+success "SSH 커밋 서명 설정 완료 (기본: GitHub 키)"
+
+# ── 자체 호스팅 GitLab 자동 구성 (선택) ───────────────
+# GITLAB_HOST 환경변수가 설정된 경우에만 실행. GitLab 전용 키로 호스트 분리.
 #   예)  GITLAB_HOST=git.example.com ./setup.sh
 if [[ -n "$GITLAB_HOST" ]]; then
   if command -v glab &>/dev/null; then
+    GKEY="$HOME/.ssh/id_ed25519_gitlab"
+    # 1) GitLab 전용 키 생성
+    if [[ ! -f "$GKEY" ]]; then
+      ssh-keygen -t ed25519 -C "$(git config --global user.email)" -f "$GKEY" -N "" \
+        && success "GitLab 전용 키 생성: $GKEY"
+    fi
+    # 2) ~/.ssh/config 호스트 블록 (없을 때만)
+    if ! grep -qiE "^[[:space:]]*Host[[:space:]]+$GITLAB_HOST([[:space:]]|\$)" "$HOME/.ssh/config" 2>/dev/null; then
+      cat >> "$HOME/.ssh/config" <<EOF
+
+Host $GITLAB_HOST
+  HostName $GITLAB_HOST
+  User git
+  IdentityFile ~/.ssh/id_ed25519_gitlab
+  IdentitiesOnly yes
+  UseKeychain yes
+EOF
+      chmod 600 "$HOME/.ssh/config"
+      success "~/.ssh/config 에 $GITLAB_HOST 추가"
+    fi
+    # 3) glab 로그인 + 키 등록
     if glab auth status &>/dev/null; then
       success "GitLab($GITLAB_HOST) 이미 인증됨"
     else
       log "GitLab($GITLAB_HOST) 로그인..."
       glab auth login --hostname "$GITLAB_HOST" \
         && success "GitLab 로그인 완료" \
-        || warn "GitLab 로그인 실패/건너뜀 — 나중에 'glab auth login --hostname $GITLAB_HOST'"
+        || warn "GitLab 로그인 실패/건너뜀"
     fi
-    # 인증됐으면 공개키 자동 등록 (이미 있으면 무시됨)
     if glab auth status &>/dev/null; then
-      glab ssh-key add "${SSH_KEY}.pub" --title "$(hostname -s)" &>/dev/null \
-        && success "GitLab SSH 키 등록 완료" \
-        || warn "GitLab SSH 키 등록 건너뜀 (이미 등록/권한)"
+      glab ssh-key add "${GKEY}.pub" --title "$(hostname -s)" &>/dev/null \
+        && success "GitLab SSH 키 등록 완료" || warn "GitLab SSH 키 등록 건너뜀 (이미 등록/권한)"
     fi
+    # 4) 이 호스트 저장소는 GitLab 키로 서명
+    printf '[user]\n\tsigningkey = ~/.ssh/id_ed25519_gitlab.pub\n' > "$HOME/.gitconfig-gitlab"
+    git config --global "includeIf.hasconfig:remote.*.url:*${GITLAB_HOST}*.path" "~/.gitconfig-gitlab"
+    success "$GITLAB_HOST 저장소는 GitLab 전용 키로 서명하도록 설정"
   else
-    warn "glab 미설치 — 'brew install glab' 후 다시 실행하세요"
+    warn "glab 미설치 — 'brew install glab' 후 'gitlab-auth $GITLAB_HOST' 실행"
   fi
 fi
-
-# ── SSH 커밋 서명 (GitHub / GitLab 'Verified' 배지) ───
-git config --global gpg.format ssh
-git config --global user.signingkey "${SSH_KEY}.pub"
-git config --global commit.gpgsign true
-git config --global tag.gpgsign true
-success "SSH 커밋 서명 설정 완료"
