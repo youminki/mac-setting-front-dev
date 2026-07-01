@@ -33,7 +33,7 @@ chmod +x setup.sh
 | pnpm | 빠른 패키지 매니저 |
 | wget | 파일 다운로드 |
 
-### VS Code / Cursor 확장프로그램
+### VS Code 확장프로그램
 
 | 확장프로그램 | 설명 |
 |------------|------|
@@ -49,8 +49,7 @@ chmod +x setup.sh
 | naumovs.color-highlight | HEX 색상 미리보기 |
 | PKief.material-icon-theme | 파일 아이콘 테마 |
 | dracula-theme.theme-dracula | Dracula 테마 |
-| GitHub.copilot | GitHub Copilot |
-| GitHub.copilot-chat | GitHub Copilot Chat |
+| anthropic.claude-code | Claude Code (VS Code 통합) |
 | MS-CEINTL.vscode-language-pack-ko | 한국어 팩 |
 
 `settings.json` 주요 설정:
@@ -65,7 +64,9 @@ chmod +x setup.sh
 | 앱 | 설명 |
 |----|------|
 | Ghostty | 터미널 |
-| Cursor | AI 코드 에디터 |
+| Visual Studio Code | 코드 에디터 |
+| Claude | Claude 데스크톱 앱 (LLM) |
+| Claude Code | 터미널 AI 코딩 CLI |
 | Google Chrome | 브라우저 |
 | Arc | 개발자 친화적 브라우저 |
 | Rectangle | 단축키 윈도우 매니저 |
@@ -152,7 +153,7 @@ mac-setting-front-dev/
 │   ├── 07_apps.sh           # 앱 설치 (Cask)
 │   ├── 08_git.sh            # Git 전역 설정 + SSH 키
 │   ├── 09_macos.sh          # macOS 시스템 설정
-│   └── 10_vscode.sh         # VS Code / Cursor 확장프로그램 + settings.json
+│   └── 10_vscode.sh         # VS Code 확장프로그램 + settings.json
 └── dotfiles/
     ├── .zshrc
     ├── .tmux.conf

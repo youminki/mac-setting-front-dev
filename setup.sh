@@ -37,7 +37,7 @@ source "$SCRIPT_DIR/scripts/07_apps.sh"
 step " 9/11  Git 설정 + SSH 키"
 source "$SCRIPT_DIR/scripts/08_git.sh"
 
-step "10/11  VS Code / Cursor 확장프로그램 + 설정"
+step "10/11  VS Code 확장프로그램 + 설정"
 source "$SCRIPT_DIR/scripts/10_vscode.sh"
 
 step "11/11  macOS 시스템 설정"

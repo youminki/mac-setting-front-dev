@@ -3,7 +3,9 @@
 
 APPS=(
   "ghostty       # 터미널"
-  "cursor        # AI 코드 에디터"
+  "visual-studio-code # 코드 에디터"
+  "claude        # Claude 데스크톱 앱 (LLM)"
+  "claude-code   # Claude Code CLI (터미널 AI 코딩)"
   "google-chrome # 브라우저"
   "arc           # 개발자 친화적 브라우저"
   "rectangle     # 윈도우 매니저"

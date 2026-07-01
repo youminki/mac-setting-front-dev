@@ -1,13 +1,11 @@
 #!/bin/bash
 [[ "$(type -t log)" != "function" ]] && source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
-# Cursor 또는 VS Code CLI 감지
-if command -v cursor &>/dev/null; then
-  CLI="cursor"
-elif command -v code &>/dev/null; then
+# VS Code CLI 감지
+if command -v code &>/dev/null; then
   CLI="code"
 else
-  warn "Cursor / VS Code CLI를 찾을 수 없습니다. 앱을 먼저 실행한 뒤 다시 시도하세요."
+  warn "VS Code CLI(code)를 찾을 수 없습니다. VS Code를 실행한 뒤 'Shell Command: Install code command'를 실행하고 다시 시도하세요."
   return 0
 fi
 
@@ -64,7 +62,7 @@ EXTENSIONS=(
   # ── 기타 ──────────────────────────────────────────
   "usernamehw.errorlens"                  # 인라인 에러 표시
   "MS-CEINTL.vscode-language-pack-ko"     # 한국어 팩
-  # GitHub.copilot / copilot-chat → Cursor 사용 시 불필요 (AI 내장)
+  "anthropic.claude-code"                 # Claude Code (VS Code 통합)
 )
 
 for ext in "${EXTENSIONS[@]}"; do
@@ -77,11 +75,7 @@ done
 # ── settings.json / keybindings.json 복사 ─────────────
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../dotfiles" && pwd)"
 
-if [[ "$CLI" == "cursor" ]]; then
-  SETTINGS_DIR="$HOME/Library/Application Support/Cursor/User"
-else
-  SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
-fi
+SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
 
 mkdir -p "$SETTINGS_DIR/snippets"
 backup_and_copy "$DOTFILES_DIR/vscode/settings.json"    "$SETTINGS_DIR/settings.json"
