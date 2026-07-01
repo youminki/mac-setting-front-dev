@@ -50,9 +50,7 @@ export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # ── 기본 에디터 ───────────────────────────────────────
-if command -v cursor &>/dev/null; then
-  export EDITOR="cursor --wait"
-elif command -v code &>/dev/null; then
+if command -v code &>/dev/null; then
   export EDITOR="code --wait"
 fi
 

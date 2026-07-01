@@ -50,24 +50,16 @@ else
   warn "npm이 설치되어 있지 않아요"
 fi
 
-step "6/6  Cursor / VS Code 확장 업데이트"
-if command -v cursor &>/dev/null; then
-  CLI="cursor"
-elif command -v code &>/dev/null; then
-  CLI="code"
-else
-  CLI=""
-fi
-
-if [[ -n "$CLI" ]]; then
+step "6/6  VS Code 확장 업데이트"
+if command -v code &>/dev/null; then
   log "설치된 확장 업데이트 중..."
-  $CLI --list-extensions | while read -r ext; do
-    $CLI --install-extension "$ext" --force &>/dev/null \
+  code --list-extensions | while read -r ext; do
+    code --install-extension "$ext" --force &>/dev/null \
       && success "$ext" \
       || warn "$ext 업데이트 실패 (건너뜀)"
   done
 else
-  warn "Cursor / VS Code CLI를 찾을 수 없어요"
+  warn "VS Code CLI(code)를 찾을 수 없어요"
 fi
 
 echo -e "\n${GREEN}${BOLD}✓ 업데이트 완료!${NC}"

@@ -45,7 +45,7 @@ chmod +x setup.sh
 | lazygit | 터미널 Git TUI |
 | git-delta | git diff 문법 하이라이팅 |
 
-### VS Code / Cursor 확장프로그램
+### VS Code 확장프로그램
 
 > 총 32개 설치 — 전체 목록은 `scripts/10_vscode.sh` 참고. 주요 항목만 아래에 정리.
 
@@ -65,9 +65,10 @@ chmod +x setup.sh
 | vitest.explorer | Vitest 테스트 러너 UI |
 | PKief.material-icon-theme | 파일 아이콘 테마 |
 | dracula-theme.theme-dracula | Dracula 테마 |
+| anthropic.claude-code | Claude Code (VS Code 통합) |
 | MS-CEINTL.vscode-language-pack-ko | 한국어 팩 |
 
-> Copilot은 Cursor에 AI가 내장돼 있어 설치하지 않습니다.
+> Copilot 대신 Claude Code(에디터 통합 + CLI)를 사용합니다.
 
 `settings.json` 주요 설정:
 - `formatOnSave` + Prettier (singleQuote, no semi, trailingComma)
@@ -81,7 +82,9 @@ chmod +x setup.sh
 | 앱 | 설명 |
 |----|------|
 | Ghostty | 터미널 |
-| Cursor | AI 코드 에디터 |
+| Visual Studio Code | 코드 에디터 |
+| Claude | Claude 데스크톱 앱 (LLM) |
+| Claude Code | 터미널 AI 코딩 CLI |
 | Google Chrome | 브라우저 |
 | Arc | 개발자 친화적 브라우저 |
 | Rectangle | 단축키 윈도우 매니저 |
@@ -179,7 +182,7 @@ mac-setting-front-dev/
 │   ├── 07_apps.sh           # 앱 설치 (Cask)
 │   ├── 08_git.sh            # Git 전역 설정 + SSH 키
 │   ├── 09_macos.sh          # macOS 시스템 설정
-│   └── 10_vscode.sh         # VS Code / Cursor 확장 + settings/keybindings/snippets
+│   └── 10_vscode.sh         # VS Code 확장 + settings/keybindings/snippets
 └── dotfiles/
     ├── .zshrc
     ├── .tmux.conf
