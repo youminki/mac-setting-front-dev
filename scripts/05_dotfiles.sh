@@ -25,6 +25,11 @@ mkdir -p "$HOME/.config/ghostty/themes"
 cp "$DOTFILES_DIR/ghostty/themes/Dracula+" "$HOME/.config/ghostty/themes/Dracula+"
 success "Ghostty Dracula+ 테마 적용 완료"
 
+# ── lazygit ────────────────────────────────────────────
+mkdir -p "$HOME/Library/Application Support/lazygit"
+backup_and_copy "$DOTFILES_DIR/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
+success "lazygit config 적용 완료"
+
 # ── SSH config ────────────────────────────────────────
 mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
 if [[ ! -f "$HOME/.ssh/config" ]]; then
