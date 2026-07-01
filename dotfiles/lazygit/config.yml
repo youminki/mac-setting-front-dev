@@ -1,0 +1,23 @@
+gui:
+  # Nerd Font 아이콘 사용 (MesloLGS NF)
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "#bd93f9"
+      - bold
+    inactiveBorderColor:
+      - "#44475a"
+    selectedLineBgColor:
+      - "#44475a"
+  showFileTree: true
+  scrollHeight: 2
+
+git:
+  # git-delta로 diff 문법 하이라이팅 (side-by-side)
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --side-by-side
+  autoFetch: true
+
+# 기본 diff 컨텍스트 라인 수
+diffContextSize: 3

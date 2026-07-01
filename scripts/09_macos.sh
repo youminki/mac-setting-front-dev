@@ -26,7 +26,8 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15                 # 반복 
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false     # 키 꾹 누르면 반복
 
 # ── 트랙패드 ──────────────────────────────────────────
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true              # 내장 트랙패드 탭으로 클릭
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true  # 외장 트랙패드
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1      # 탭으로 클릭
 
 # ── 스크린샷 ──────────────────────────────────────────
@@ -41,7 +42,8 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false      
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false  # 자동 마침표 끄기
 
 # ── 적용 ──────────────────────────────────────────────
-killall Finder 2>/dev/null || true
-killall Dock   2>/dev/null || true
+killall Finder         2>/dev/null || true
+killall Dock           2>/dev/null || true
+killall SystemUIServer 2>/dev/null || true   # 스크린샷/메뉴바 설정 반영
 
 success "macOS 시스템 설정 완료"
