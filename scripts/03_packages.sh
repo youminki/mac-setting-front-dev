@@ -10,6 +10,7 @@ PACKAGES=(
   "bat                    # 문법 하이라이팅 cat 대체"
   "tmux                   # 터미널 멀티플렉서"
   "gh                     # GitHub CLI"
+  "glab                   # GitLab CLI (자체 호스팅 GitLab 지원)"
   "jq                     # JSON 처리"
   "pnpm                   # 빠른 패키지 매니저"
   "wget                   # 파일 다운로드"
