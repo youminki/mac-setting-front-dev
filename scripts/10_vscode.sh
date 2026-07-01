@@ -49,7 +49,7 @@ EXTENSIONS=(
   "github.vscode-github-actions"          # GitHub Actions 지원
 
   # ── 테스트 ────────────────────────────────────────
-  "ZixuanChen.vitest-explorer"            # Vitest 테스트 러너 UI
+  "vitest.explorer"                       # Vitest 테스트 러너 UI (공식)
   "antfu.vite"                            # Vite 지원
 
   # ── 원격 / 컨테이너 ───────────────────────────────

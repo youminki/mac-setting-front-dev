@@ -5,7 +5,8 @@ if [[ -d "$HOME/.nvm" ]]; then
   success "nvm 이미 설치됨"
 else
   log "nvm 설치 중..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+  # nvm은 설치 URL에 버전 태그가 필수 — 최신 안정 버전으로 고정 (수동 갱신)
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
   success "nvm 설치 완료"
 fi
 

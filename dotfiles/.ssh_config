@@ -1,6 +1,22 @@
+# ── 공통 ──────────────────────────────────────────────
 Host *
   ServerAliveInterval 60
   ServerAliveCountMax 3
   AddKeysToAgent yes
   UseKeychain yes
+
+# ── GitHub (개인) → id_ed25519 ────────────────────────
+Host github.com
+  HostName github.com
+  User git
   IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+# ── gitlab.com (공개) → id_ed25519_gitlab ─────────────
+Host gitlab.com
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_gitlab
+  IdentitiesOnly yes
+
+# 자체 호스팅 GitLab 블록은 `gitlab-auth <호스트>` 실행 시 자동 추가됩니다.

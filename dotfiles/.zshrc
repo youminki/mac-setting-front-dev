@@ -31,6 +31,20 @@ node() { nvm; node "$@"; }
 npm()  { nvm; npm  "$@"; }
 npx()  { nvm; npx  "$@"; }
 
+# ── .nvmrc 자동 Node 버전 전환 ────────────────────────
+# cd 시 상위 경로까지 .nvmrc 탐색 → 해당 버전으로 nvm use (첫 호출 때 nvm lazy-load)
+autoload -U add-zsh-hook
+_auto_nvmrc() {
+  local dir="$PWD" nvmrc=""
+  while [[ -n "$dir" && "$dir" != "/" ]]; do
+    [[ -f "$dir/.nvmrc" ]] && { nvmrc="$dir/.nvmrc"; break; }
+    dir="${dir:h}"
+  done
+  [[ -z "$nvmrc" ]] && return
+  nvm use "$(<"$nvmrc")" &>/dev/null || echo "nvm: $(<"$nvmrc") 미설치 — 'nvm install' 하세요"
+}
+add-zsh-hook chpwd _auto_nvmrc
+
 # ── pnpm ──────────────────────────────────────────────
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -88,6 +102,53 @@ alias gaa="git add ."
 alias gc="git commit -m"
 alias gp="git push"
 alias gpl="git pull"
+
+# ── 자체 호스팅 GitLab 인증 (glab) ────────────────────
+# 사용법: gitlab-auth            → 호스트 주소를 물어봄
+#         gitlab-auth git.xxx.com → 바로 인증
+# GitLab 전용 키(id_ed25519_gitlab)로 호스트별 분리 + 커밋 서명까지 구성
+gitlab-auth() {
+  local host="$1"
+  if [[ -z "$host" ]]; then
+    echo -n "GitLab 호스트 주소를 입력하세요 (예: git.example.com): "
+    read -r host
+  fi
+  [[ -z "$host" ]] && { echo "✗ 호스트가 비어 있습니다."; return 1; }
+  command -v glab >/dev/null || { echo "✗ glab 미설치 — brew install glab"; return 1; }
+
+  local gkey="$HOME/.ssh/id_ed25519_gitlab"
+  # 1) GitLab 전용 키 없으면 생성
+  if [[ ! -f "$gkey" ]]; then
+    ssh-keygen -t ed25519 -C "$(git config --global user.email)" -f "$gkey" -N "" || return 1
+    echo "✓ GitLab 전용 키 생성: $gkey"
+  fi
+  # 2) ~/.ssh/config 에 호스트 블록 추가 (없을 때만)
+  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  if ! grep -qiE "^[[:space:]]*Host[[:space:]]+$host([[:space:]]|\$)" ~/.ssh/config 2>/dev/null; then
+    cat >> ~/.ssh/config <<EOF
+
+Host $host
+  HostName $host
+  User git
+  IdentityFile ~/.ssh/id_ed25519_gitlab
+  IdentitiesOnly yes
+  UseKeychain yes
+EOF
+    chmod 600 ~/.ssh/config
+    echo "✓ ~/.ssh/config 에 $host 추가 (전용 키 사용)"
+  fi
+  # 3) glab 로그인 + 키 등록 (usage-type 기본 auth_and_signing)
+  export GITLAB_HOST="$host"
+  glab auth login --hostname "$host" || { echo "✗ 로그인 실패"; return 1; }
+  glab ssh-key add "$gkey.pub" --title "$(hostname -s)" \
+    && echo "✓ SSH 키 등록 완료" || echo "! 키 등록 건너뜀 (이미 등록됨일 수 있음)"
+  # 4) ~/dev/GitLab/ 아래 저장소는 GitLab 키로 커밋 서명 (Verified 배지)
+  mkdir -p ~/dev/GitLab
+  printf '[user]\n\tsigningkey = ~/.ssh/id_ed25519_gitlab.pub\n' > ~/.gitconfig-gitlab
+  git config --global "includeIf.gitdir:~/dev/GitLab/.path" "~/.gitconfig-gitlab"
+  echo "✓ ~/dev/GitLab/ 아래 저장소는 GitLab 전용 키로 커밋 서명하도록 설정"
+  echo "✓ 완료 — 회사 repo는 ~/dev/GitLab/ 아래에 클론하세요 (전용 키·서명 자동 적용)"
+}
 
 # ── npm / pnpm ────────────────────────────────────────
 alias dev="npm run dev"
