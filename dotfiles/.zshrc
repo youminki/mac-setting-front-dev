@@ -31,6 +31,20 @@ node() { nvm; node "$@"; }
 npm()  { nvm; npm  "$@"; }
 npx()  { nvm; npx  "$@"; }
 
+# ── .nvmrc 자동 Node 버전 전환 ────────────────────────
+# cd 시 상위 경로까지 .nvmrc 탐색 → 해당 버전으로 nvm use (첫 호출 때 nvm lazy-load)
+autoload -U add-zsh-hook
+_auto_nvmrc() {
+  local dir="$PWD" nvmrc=""
+  while [[ -n "$dir" && "$dir" != "/" ]]; do
+    [[ -f "$dir/.nvmrc" ]] && { nvmrc="$dir/.nvmrc"; break; }
+    dir="${dir:h}"
+  done
+  [[ -z "$nvmrc" ]] && return
+  nvm use "$(<"$nvmrc")" &>/dev/null || echo "nvm: $(<"$nvmrc") 미설치 — 'nvm install' 하세요"
+}
+add-zsh-hook chpwd _auto_nvmrc
+
 # ── pnpm ──────────────────────────────────────────────
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -90,6 +104,24 @@ alias gaa="git add ."
 alias gc="git commit -m"
 alias gp="git push"
 alias gpl="git pull"
+
+# ── 자체 호스팅 GitLab 인증 (glab) ────────────────────
+# 사용법: gitlab-auth            → 호스트 주소를 물어봄
+#         gitlab-auth git.xxx.com → 바로 인증
+gitlab-auth() {
+  local host="$1"
+  if [[ -z "$host" ]]; then
+    echo -n "GitLab 호스트 주소를 입력하세요 (예: git.example.com): "
+    read -r host
+  fi
+  [[ -z "$host" ]] && { echo "✗ 호스트가 비어 있습니다."; return 1; }
+  command -v glab >/dev/null || { echo "✗ glab 미설치 — brew install glab"; return 1; }
+  export GITLAB_HOST="$host"
+  glab auth login --hostname "$host" || { echo "✗ 로그인 실패"; return 1; }
+  glab ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "$(hostname -s)" \
+    && echo "✓ $host 인증 + SSH 키 등록 완료" \
+    || echo "! SSH 키 등록 건너뜀 (이미 등록됨일 수 있음)"
+}
 
 # ── npm / pnpm ────────────────────────────────────────
 alias dev="npm run dev"
