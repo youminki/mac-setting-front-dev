@@ -144,11 +144,12 @@ EOF
   glab auth login --hostname "$host" || { echo "✗ 로그인 실패"; return 1; }
   glab ssh-key add "$gkey.pub" --title "$(hostname -s)" \
     && echo "✓ SSH 키 등록 완료" || echo "! 키 등록 건너뜀 (이미 등록됨일 수 있음)"
-  # 4) 이 호스트 저장소는 GitLab 키로 커밋 서명 (Verified 배지)
+  # 4) ~/dev/GitLab/ 아래 저장소는 GitLab 키로 커밋 서명 (Verified 배지)
+  mkdir -p ~/dev/GitLab
   printf '[user]\n\tsigningkey = ~/.ssh/id_ed25519_gitlab.pub\n' > ~/.gitconfig-gitlab
-  git config --global "includeIf.hasconfig:remote.*.url:*$host*.path" "~/.gitconfig-gitlab"
-  echo "✓ $host 저장소는 GitLab 전용 키로 커밋 서명하도록 설정"
-  echo "✓ 완료 — 이제 $host 클론/푸시가 전용 키로 자동 처리됩니다"
+  git config --global "includeIf.gitdir:~/dev/GitLab/.path" "~/.gitconfig-gitlab"
+  echo "✓ ~/dev/GitLab/ 아래 저장소는 GitLab 전용 키로 커밋 서명하도록 설정"
+  echo "✓ 완료 — 회사 repo는 ~/dev/GitLab/ 아래에 클론하세요 (전용 키·서명 자동 적용)"
 }
 
 # ── npm / pnpm ────────────────────────────────────────

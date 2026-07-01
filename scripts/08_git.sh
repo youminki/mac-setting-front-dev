@@ -129,10 +129,11 @@ EOF
       glab ssh-key add "${GKEY}.pub" --title "$(hostname -s)" &>/dev/null \
         && success "GitLab SSH 키 등록 완료" || warn "GitLab SSH 키 등록 건너뜀 (이미 등록/권한)"
     fi
-    # 4) 이 호스트 저장소는 GitLab 키로 서명
+    # 4) ~/dev/GitLab/ 아래 저장소는 GitLab 전용 키로 서명 (gitdir 조건부)
+    mkdir -p "$HOME/dev/GitLab"
     printf '[user]\n\tsigningkey = ~/.ssh/id_ed25519_gitlab.pub\n' > "$HOME/.gitconfig-gitlab"
-    git config --global "includeIf.hasconfig:remote.*.url:*${GITLAB_HOST}*.path" "~/.gitconfig-gitlab"
-    success "$GITLAB_HOST 저장소는 GitLab 전용 키로 서명하도록 설정"
+    git config --global "includeIf.gitdir:~/dev/GitLab/.path" "~/.gitconfig-gitlab"
+    success "~/dev/GitLab/ 아래 저장소는 GitLab 전용 키로 서명하도록 설정"
   else
     warn "glab 미설치 — 'brew install glab' 후 'gitlab-auth $GITLAB_HOST' 실행"
   fi

@@ -148,7 +148,8 @@ build  npm run build
 - `gh`로 GitHub 로그인 + 공개키를 인증·서명 키로 자동 등록 (`gh` 없으면 클립보드 복사로 폴백)
 - `gitlab-auth` / `GITLAB_HOST` 지정 시 `glab`로 자체 호스팅 GitLab 자동 인증
   (전용 키 생성 → `~/.ssh/config` 호스트 블록 추가 → 키 등록 → 호스트별 서명까지 자동)
-- **SSH 커밋 서명** 활성화 — GitHub 저장소는 GitHub 키, GitLab 저장소는 `includeIf`로 GitLab 키 (`Verified` 배지)
+- **SSH 커밋 서명** 활성화 — 기본은 GitHub 키, `~/dev/GitLab/` 아래 저장소는 `includeIf gitdir:`로 GitLab 키 자동 전환 (`Verified` 배지)
+  - 회사 repo는 `~/dev/GitLab/` 아래에 클론하면 전용 키·서명이 자동 적용됩니다
 
 ### macOS 시스템 설정 (선택)
 - Finder: 숨김 파일 표시, 확장자 표시, 경로 바 표시
